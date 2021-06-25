@@ -4,14 +4,17 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:realEstate/screen/auth/login.dart';
 import 'package:realEstate/screen/homescreen/about_app.dart';
 import 'package:realEstate/screen/homescreen/articles.dart';
+import 'package:realEstate/screen/homescreen/callhistory.dart';
 import 'package:realEstate/screen/homescreen/landpage.dart';
+import 'package:realEstate/screen/homescreen/member_track.dart';
 import 'package:realEstate/screen/homescreen/patient.dart';
 import 'package:realEstate/screen/homescreen/profile.dart';
 
 class HomeScreen extends StatefulWidget {
   final String title;
+  final String phonenumber;
 
-  HomeScreen({Key key, this.title}) : super(key: key);
+  HomeScreen({Key key, this.title,this.phonenumber}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -36,11 +39,11 @@ class _HomeScreenState extends State<HomeScreen> {
         return PatientPage();
       case 3:
         // members
-        return Center(child: Text("Track Not Done Yet"));
+        return MemberTrack();
         break;
       case 4:
         // profile
-        return Profile();
+        return CallHistory(phonenumber : widget.phonenumber);
         break;
 
       default:

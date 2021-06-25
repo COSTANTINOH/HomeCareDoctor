@@ -72,13 +72,12 @@ class _ArticlesPageState extends State<ArticlesPage> {
                               ),
                               Expanded(
                                 child: Text(
-                                  '${snapshot.data[index]['description']}',
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12.0,
-                              )
-                                ),
+                                    '${snapshot.data[index]['description']}',
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12.0,
+                                    )),
                               ),
                               SizedBox(
                                 width: 10,
@@ -88,14 +87,14 @@ class _ArticlesPageState extends State<ArticlesPage> {
                               ),
                             ],
                           ),
-                           Text(
-                                'Post Date : ${snapshot.data[index]['post_date']}', 
-                                style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14.0,
-                              ),
-                                //some other text in the end of the card or maybe an icon instead
+                          Text(
+                            'Post Date : ${snapshot.data[index]['post_date']}',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14.0,
+                            ),
+                            //some other text in the end of the card or maybe an icon instead
                           ),
                         ],
                       ),

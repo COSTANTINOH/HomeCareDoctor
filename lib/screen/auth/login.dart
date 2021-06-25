@@ -11,8 +11,6 @@ import 'package:realEstate/widget/textformfield.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,7 @@ class _SignInScreenState extends State<SignInScreen> {
   GlobalKey<FormState> _key = GlobalKey();
   bool isregistered = false;
 
-    //function save
+  //function save
   _save(String token) async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'doctor_id';
@@ -47,15 +45,11 @@ class _SignInScreenState extends State<SignInScreen> {
     prefs.setString(key, value);
   }
 
-   Future<dynamic> login(
-     String phone, String password) async {
+  Future<dynamic> login(String phone, String password) async {
     String myApi = "http://192.168.43.195/homecare/api/login_doctor.php/";
-    final response = await http.post(myApi, headers: {
-      'Accept': 'application/json'
-    }, body: {
-      "phone": "$phone",
-      "password": "$password"
-    });
+    final response = await http.post(myApi,
+        headers: {'Accept': 'application/json'},
+        body: {"phone": "$phone", "password": "$password"});
 
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
@@ -63,7 +57,7 @@ class _SignInScreenState extends State<SignInScreen> {
       if (jsonResponse != null && jsonResponse != 404 && jsonResponse != 500) {
         var json = jsonDecode(response.body);
         print("user data is ${json[0]['id']}");
-           _save(json[0]['id']);
+        _save(json[0]['id']);
 
         setState(() {
           isregistered = false;
@@ -72,7 +66,8 @@ class _SignInScreenState extends State<SignInScreen> {
         });
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(
+              builder: (context) => HomeScreen(phonenumber: phone)),
         );
         return Fluttertoast.showToast(
             msg: "Welcome to your account",
@@ -286,7 +281,7 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
           GestureDetector(
             onTap: () {
-                 Navigator.push(
+              Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => RegisterScreen()),
               );
@@ -307,16 +302,16 @@ class _SignInScreenState extends State<SignInScreen> {
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       onPressed: () {
-        if(emailController.text == "" || passwordController.text == ""){
-           return Fluttertoast.showToast(
-            msg: "Please provide all details",
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white);
-        }else{
-          login(emailController.text,passwordController.text);
+        if (emailController.text == "" || passwordController.text == "") {
+          return Fluttertoast.showToast(
+              msg: "Please provide all details",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white);
+        } else {
+          login(emailController.text, passwordController.text);
         }
       },
       textColor: Colors.white,
@@ -378,9 +373,7 @@ class _SignInScreenState extends State<SignInScreen> {
             width: 5,
           ),
           GestureDetector(
-            onTap: () {
-             
-            },
+            onTap: () {},
             child: Text(
               "Sign up",
               style: TextStyle(

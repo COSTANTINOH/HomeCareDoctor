@@ -3,18 +3,19 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:realEstate/screen/auth/shared.dart';
+import 'package:realEstate/screen/homescreen/track_history.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class PatientPage extends StatefulWidget {
+class MemberTrack extends StatefulWidget {
   @override
-  _PatientPageState createState() => _PatientPageState();
+  _MemberTrackState createState() => _MemberTrackState();
 }
 
-class _PatientPageState extends State<PatientPage> {
+class _MemberTrackState extends State<MemberTrack> {
   @override
   // ignore: override_on_non_overriding_member
-  Future<dynamic> getPatientPage() async {
+  Future<dynamic> getMemberTrack() async {
     // print(_cargono);
     // print(_cphone);
     final prefs = await SharedPreferences.getInstance();
@@ -45,7 +46,7 @@ class _PatientPageState extends State<PatientPage> {
 
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getPatientPage(),
+      future: getMemberTrack(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
@@ -68,9 +69,15 @@ class _PatientPageState extends State<PatientPage> {
                   subtitle: Text("${snapshot.data[index]['phone']}"),
                   trailing: ElevatedButton(
                     onPressed: () {
-                      launch("tel://${snapshot.data[index]['phone']}");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TrackHistory(
+                                  phonenumber: snapshot.data[index]['phone'],
+                                )),
+                      );
                     },
-                    child: Text('Call'),
+                    child: Text('View'),
                     style: ElevatedButton.styleFrom(
                       elevation: 2.0,
                       shape: RoundedRectangleBorder(
